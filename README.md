@@ -12,26 +12,26 @@ DRF настроен для сущности Заказ, для обращени
 
 ## Пример работы
 Личный кабинет заказчика, у него есть возможность разместить тут новый заказ, а также отменить еще не выполненный заказ.
-![](https://github.com/he1lhamster/ylab_hw/blob/main/img/1.png)
-![](https://github.com/he1lhamster/ylab_hw/blob/main/img/2.png)
-![](https://github.com/he1lhamster/ylab_hw/blob/main/img/3.png)
-![](https://github.com/he1lhamster/ylab_hw/blob/main/img/4.png)
+![](https://github.com/he1lhamster/anverali_test/blob/main/img/1.png)
+![](https://github.com/he1lhamster/anverali_test/blob/main/img/2.png)
+![](https://github.com/he1lhamster/anverali_test/blob/main/img/3.png)
+![](https://github.com/he1lhamster/anverali_test/blob/main/img/4.png)
 
 Страница со всеми заказами, видим что появился только что созданный заказ
-![](https://github.com/he1lhamster/ylab_hw/blob/main/img/5.png)
+![](https://github.com/he1lhamster/anverali_test/blob/main/img/5.png)
 
 Личный кабинет исполнителя, тут указано количество исполненных заказов, средняя оценка, а также список всех относящихся к нему заказов
-![](https://github.com/he1lhamster/ylab_hw/blob/main/img/6.png)
+![](https://github.com/he1lhamster/anverali_test/blob/main/img/6.png)
 
 На странице заказов он может взять себе размещенный заказ
-![](https://github.com/he1lhamster/ylab_hw/blob/main/img/7.png)
+![](https://github.com/he1lhamster/anverali_test/blob/main/img/7.png)
 
 В личном кабинете исполнителя отобразится, что заказ взят и выполняется, тут же он может изменить статус заказа на "Исполнен"
-![](https://github.com/he1lhamster/ylab_hw/blob/main/img/8.png)
-![](https://github.com/he1lhamster/ylab_hw/blob/main/img/9.png)
+![](https://github.com/he1lhamster/anverali_test/blob/main/img/8.png)
+![](https://github.com/he1lhamster/anverali_test/blob/main/img/9.png)
 
 В личном кабинете заказчика видно, что заказ исполнен, его можно оценить по шкале от 1 до 10
-![](https://github.com/he1lhamster/ylab_hw/blob/main/img/10.png)
+![](https://github.com/he1lhamster/anverali_test/blob/main/img/10.png)
 
 Исполнитель видит, что заказ исполнен и ему выставлена оценка 
-![](https://github.com/he1lhamster/ylab_hw/blob/main/img/11.png)
+![](https://github.com/he1lhamster/anverali_test/blob/main/img/11.png)
