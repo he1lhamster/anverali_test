@@ -1,7 +1,7 @@
 from django.db import transaction
 from rest_framework import viewsets
 from .models import CustomUser, Customer, Performer, OrderCategory, Status, Order
-from .serializers import CustomUserSerializer, CustomerSerializer, PerformerSerializer, OrderSerializer, StatusSerializer
+from .serializers import CustomUserSerializer, CustomerSerializer, PerformerSerializer, OrderSerializer
 
 
 class CustomUserViewSet(viewsets.ModelViewSet):

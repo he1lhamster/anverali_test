@@ -12,7 +12,6 @@ def custom_login(request):
             login(request, user)
             return redirect('success_url')
         else:
-            # Return an 'invalid login' error message.
             pass
     return render(request, 'registration/login.html', context)
 

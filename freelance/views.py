@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from .models import Customer, Performer, OrderCategory, Status, Order, CustomUser
-from django.contrib.auth import get_user
+from .models import Customer, Performer, OrderCategory, Order
 
 
 def index(request):
