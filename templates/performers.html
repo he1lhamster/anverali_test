@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Исполнители
+{% endblock %}
+
+{% block body %}
+<h1 class="h1-header">Исполнители</h1>
+
+    <table>
+    <thead>
+        <tr>
+            <th>Исполнитель</th>
+            <th>Категория работ</th>
+            <th>Выполнено заказов</th>
+            <th>Средняя оценка</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for performer in performers %}
+            <tr>
+                <td>{{ performer.user.username }}</td>
+                <td>
+                    {% for category in performer.categories.all %}
+                        {{ category.name }}<br>
+                    {% endfor %}
+                </td>
+                <td>{{ performer.orders_completed }}</td>
+                <td>{{ performer.total_rate|floatformat }}</td>
+            </tr>
+        {% endfor %}
+
+    </tbody>
+    </table>
+
+{% endblock %}

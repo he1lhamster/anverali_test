@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Личный кабинет
+{% endblock %}
+
+{% block body %}
+    {% if user.user_type == 'customer' %}
+    <h1 class="h1-header">Личный кабинет Заказчика</h1>
+    <h2 class="h2-header">Мои заказы</h2>
+
+        Всего заказов = {{ profiler.orders.count }}
+
+        {% if orders %}
+            <table>
+            <thead>
+                <th>Заказ</th>
+                <th>Исполнитель</th>
+                <th>Категория</th>
+                <th>Описание</th>
+                <th>Статус</th>
+                <th>Оценка</th>
+                <th>Действия</th>
+            </thead>
+            <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.title }}</td>
+                    <td>
+                        {% if order.performer_id %}
+                                {{ order.performer.user.username }}
+                        {% endif %}
+                    </a>
+                    </td>
+                    <td>{{ order.order_category }}</td>
+                    <td>{{ order.description }}</td>
+                    <td>{{ order.status.caption }}</td>
+                    <td>{% if order.rate %}
+                            {{ order.rate }}
+                        {% elif order.status.state == 3 %}
+                            <input type="number" class="ratingInput" min="1" max="10" required style="border: 1px solid black">
+                            <button class="updateOrderBtn" data-order-id="{{ order.id }}" data-rate-id="">Оценить</button>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if order.status.state <= 2 %}
+                            <button class="updateOrderBtn" data-order-id="{{ order.id }}" data-status-id=4>Отменить заказ</button>
+                        {% endif %}
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+            </tbody>
+            </table>
+
+        {% endif %}
+
+        <h2 class="h2-header">Создать заказ</h2>
+            <input type="hidden" id="customer_id" value="{{ user.customers.first.id }}">
+
+            <label for="title">Title:</label>
+            <input type="text" id="title" required>
+            <br>
+            <label for="description">Description:</label>
+            <textarea id="description" rows="4" required></textarea>
+            <br>
+            <label for="order_category">Order Category:</label>
+            <select id="order_category" required>
+                {% for category in order_categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <button id="createOrderBtn" onclick="createOrderClick()">Создать заказ</button>
+
+
+    {% elif user.user_type == 'performer' %}
+    <h1 class="h1-header">Личный кабинет Исполнителя</h1>
+    <h2 class="h2-header">Мои заказы</h2>
+        Выполнено заказов = {{ profiler.orders_completed }}
+        Средняя оценка = {{ profiler.total_rate|floatformat }}
+
+    <table>
+    <thead>
+        <tr>
+            <th>Заказ</th>
+            <th>Заказчик</th>
+            <th>Исполнитель</th>
+            <th>Категория</th>
+            <th>Описание</th>
+            <th>Статус</th>
+            <th>Оценка</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+            <td>
+                {{ order.title }}
+            </td>
+            <td>
+                    {{ order.customer.user.username }}
+            </td>
+            <td>
+                {% if order.performer_id %}
+                        {{ order.performer.user.username }}
+                {% endif %}
+            </td>
+            <td>{{ order.order_category }}</td>
+            <td>{{ order.description }}</td>
+            <td>{{ order.status.caption }}
+                {% if order.status.state == 2 %}
+                    <button class="updateOrderBtn" data-order-id="{{ order.id }}" data-status-id=3>Выполнено</button>
+                {% endif %}
+            </td>
+            <td>{% if order.status.state == 3 and order.rate %}
+                    {{ order.rate }}
+                {% endif %}
+            </td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+
+    {% else %}
+        <h3 class="h3-header">Войдите как заказчик или исполнитель, чтобы получить доступ к личному кабинету</h3>
+
+    {% endif %}
+{% endblock %}

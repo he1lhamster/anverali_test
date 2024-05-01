@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Регистрация
+{% endblock title %}
+
+{% block body %}
+
+<h1 class="h1-header">Регистрация</h1>
+
+
+<form class="registration-box" action="" method="post">{% csrf_token %}
+
+        <h3 class="reg-string"><span class="label">Username:  </span><span>{{form.username}}</span> </h3>
+        {{ form.username.help_text }}
+    <hr>
+        <h3 class="reg-string"><span class="label">Password:  </span><span>{{form.password1}}</span></h3>
+        {{ form.password1.help_text }}
+    <hr>
+        <h3 class="reg-string"><span class="label">Password confirmation:  </span><span>{{form.password2}}</span></h3>
+        {{ form.password2.help_text }}
+    <hr>
+        <h3 class="reg-string"><span class="label">E-mail:  </span><span>{{form.email}}</span></h3>
+        {{ form.email.help_text }}
+    <hr>
+
+        <h3 class="reg-string"><span class="label">User Type:</span></h3>
+        {% for choice in form.user_type %}
+            {% if choice.choice_label == 'performer' or choice.choice_label == 'customer' %}
+            <input type="radio" id="{{ choice.id_for_label }}" name="{{ form.user_type.name }}" value="{{ choice.choice_value }}" {% if choice.checked %}checked{% endif %}>
+            <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label><br>
+            {% endif %}
+        {% endfor %}
+        {{ form.user_type.errors }}
+
+        <div class="submit-box">
+            <input class="button-submit" type="submit" value="Register">
+        </div> 
+</form>
+
+
+
+
+{% endblock %}

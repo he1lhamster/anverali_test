@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>
+        {% block title %}
+        {% endblock title %}
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8" user-scalable="yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
+</head>
+
+<body>
+<div class="wrapper">
+<header class="header">
+    <div class="logo header--logo">
+        <a class="logo--link" href="/"> FREELANCE WITH US</a>
+    </div>
+
+    <div class="nav-panel header--nav-panel">
+      <div class="userpanel header--userpanel">
+           {% if user.is_authenticated %}
+
+                  <a class="header--userlink" href="{% url 'freelance:profile' %}">{{ user.username }}</a>
+{#                  <a href="{% url 'logout'%}?next={{request.path}}">Выйти</a>#}
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="header--button-logout"> <a class="header--userlink">Logout</a></button>
+                    </form>
+
+            {% else %}
+{#                  <a class="user-login userpanel--user-login" href="{% url 'login'%}?next={{request.path}}">Войти</a>#}
+
+               <a class="header--userlink" href="{% url 'login' %}">Login</a>
+
+            {% endif %}
+      </div>
+    </div>
+</header>
+
+<div class="page">
+    <div class="leftmenu">
+        <div class="menu-content leftmenu__menu-content">
+            <div class="menu-h1 leftmenu__menu-h1" id="h1-orders">
+                <span class="menu-h1-header leftmenu__menu-h1-header ">
+                   Заказы
+                </span>
+            </div>
+            <div class="inside-h1 leftmenu__inside-h1" id="h1-orders-submenu">
+                <div class="menu-h2 leftmenu__menu-h2 menu-h2--active expanded-menu " id="h2-orders">
+                    <a class="menu-h2-header leftmenu__menu-h2-header" href="{% url 'freelance:orders' %}">
+                        Все заказы
+                    </a>
+                    <div class="clickable-menu" id="h2-orders-click">
+                        <div class="menu-h2-open-menu leftmenu__menu-h2-open-menu open-menu"
+                             id="h2-orders-arrow"></div>
+                    </div>
+                </div>
+                <div class="inside-h2 leftmenu__inside-h2 submenu " id="h2-orders-submenu">
+
+                    <div class="menu-h3 leftmenu__menu-h3" id="h3-category-a">
+                        <a href="{% url 'freelance:order_category_page' category_id=1 %}"  class="menu-h3-header leftmenu__menu-h3-header">
+                            Category A
+                        </a>
+                    </div>
+                    <div class="menu-h3 leftmenu__menu-h3" id="h3-category-b">
+                        <a href="{% url 'freelance:order_category_page' category_id=2 %}"  class="menu-h3-header leftmenu__menu-h3-header">
+                            Category B
+                        </a>
+                    </div>
+                    <div class="menu-h3 leftmenu__menu-h3" id="h3-category-c">
+                        <a href="{% url 'freelance:order_category_page' category_id=3 %}"  class="menu-h3-header leftmenu__menu-h3-header">
+                            Category C
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            {#            #}
+            <div class="menu-h1 leftmenu__menu-h1" id="h1-performers">
+                <span class="menu-h1-header leftmenu__menu-h1-header">
+                   Исполнители
+                </span>
+            </div>
+            <div class="inside-h1 leftmenu__inside-h1" id="h1-performers-submenu">
+                <div class="menu-h2 leftmenu__menu-h2 menu-h2--active " id="h2-performers">
+                    <a class="menu-h2-header leftmenu__menu-h2-header" href="{% url 'freelance:performers' %}">
+                        Все исполнители
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="main">
+        <div class="content">
+          {% block body %}
+
+          {% endblock body %}
+        </div>
+
+        <footer class="footer">
+            <div class="link footer__link">
+                <a class="footer__textlink textlink" href="#">About</a>
+            </div>
+        </footer>
+    </div>
+
+</div>
+
+</div>
+</body>
+
+  <script src="{% static 'menus.js' %}"></script>
+  <script src="{% static 'api_orders.js' %}"></script>
+</html>

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Заказы
+{% endblock %}
+
+{% block body %}
+<h1 class="h1-header">Заказы</h1>
+
+    <table>
+    <thead>
+        <tr>
+            <th>Заказ</th>
+            <th>Заказчик</th>
+            <th>Исполнитель</th>
+            <th>Категория</th>
+            <th>Описание</th>
+            <th>Статус</th>
+            <th>Оценка</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+            <td>
+                {{ order.title }}
+            </td>
+            <td>
+                    {{ order.customer.user.username }}
+            </td>
+            <td>
+                {% if order.performer_id %}
+                        {{ order.performer.user.username }}
+                {% elif user.is_authenticated and user.user_type == 'performer' %}
+                    <button class="updateOrderBtn" data-order-id="{{ order.id }}" data-performer-id="{{ user.performers.first.id }}" data-status-id=2>Взять заказ</button>
+                {% endif %}
+            </td>
+            <td>{{ order.order_category }}</td>
+            <td>{{ order.description }}</td>
+            <td>{{ order.status.caption }}</td>
+            <td>{% if order.status.state == 3 and order.rate %}
+                    {{ order.rate }}
+                {% endif %}
+            </td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+
+{% endblock %}

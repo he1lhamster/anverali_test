@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: anverali_test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    command: >
+      bash -c "
+      python manage.py makemigrations &&
+      python manage.py migrate &&
+      python manage.py create_admin_user &&
+      python manage.py collectstatic --no-input &&
+      python manage.py test &&
+      python manage.py runserver 0.0.0.0:8000
+      "
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+volumes:
+  db_data:
+
+#    instead of create_super_user
+#    python manage.py shell -c \"from freelance.models import CustomUser; CustomUser.objects.create_superuser('admin', 'admin@admin.com', 'admin')\" &&

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Заказы по категориям
+{% endblock %}
+
+{% block body %}
+<h1 class="h1-header">Заказы {{ orders.first.order_category }}</h1>
+
+    <table>
+    <thead>
+        <tr>
+            <th>Заказ</th>
+            <th>Заказчик</th>
+            <th>Исполнитель</th>
+            <th>Категория</th>
+            <th>Описание</th>
+            <th>Статус</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+            <td>
+                <a href="{% url 'freelance:order_page' order_id=order.id %}"> {{ order.title }}</a>
+            </td>
+            <td>
+                <a href="{% url 'freelance:customer_page' customer_id=order.customer_id %}">
+                    {{ order.customer.user.username }}
+                </a>
+            </td>
+            <td>
+                {% if order.performer_id %}
+                    <a href="{% url 'freelance:performer_page' performer_id=order.performer_id %}">
+                        {{ order.performer.user.username }}
+                    </a>
+                {% elif user.is_authenticated and user.user_type == 'performer' %}
+                    <button class="updatePerformerBtn" data-order-id="{{ order.id }}" data-performer-id="{{ user.performers.first.id }}">Взять заказ</button>
+                {% endif %}
+            </td>
+            <td>{{ order.order_category }}</td>
+            <td>{{ order.description }}</td>
+            <td>{{ order.status.caption }}</td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+{% endblock %}
