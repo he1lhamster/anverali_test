@@ -7,6 +7,11 @@ services:
       POSTGRES_DB: anverali_test
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 3s
+      timeout: 3s
+      retries: 5
     volumes:
       - db_data:/var/lib/postgresql/data
 
@@ -26,7 +31,8 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
 volumes:
   db_data:
